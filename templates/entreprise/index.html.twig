@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EntrepriseController!{% endblock %}
+
+{% block body %}
+    <h1>Liste des entreprises</h1>
+    <a class='btn btn-primary' href="{{path('add_entreprise')}}">Ajouter une entreprise</a><br>
+
+    <!--entrepriseS est un tableau d'objet, entreprise est un echo d'un objet-->
+
+    {% for entreprise in entreprises %}
+        <a href="{{path('show_entreprise', {'id':entreprise.id}) }}">{{ entreprise.raisonSociale ~ ' (' ~ entreprise.cp ~ ' ' ~ entreprise.ville ~')'}} </a>
+
+    <!-- Cette ligne est équivalente à la ligne ci-dessus -->
+        {# {{ entreprise.raisonSociale }} ({{ entreprise.cp}} {{entreprise.ville}}) #}
+
+        {# 3eme possibilité: on a créé la fonction __toString, pourrait donc simplement ecrire: {{entreprise}} et il irait chercher nativement la fonction  #}
+       <a class="btn btn-warning" href="{{path('edit_entreprise', {'id': entreprise.id}) }}">Edit</a>
+       <a class="btn btn-danger" href="{{path('delete_entreprise', {'id': entreprise.id}) }}">Delete</a>
+
+       <br>
+    {% endfor %}
+
+
+{% endblock %}
+
+{# {{dump(entreprise) }} est l'equivalent du var_dump() #}
